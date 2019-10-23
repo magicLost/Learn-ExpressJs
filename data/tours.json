@@ -1,0 +1,34 @@
+[
+  {
+    "id": 1,
+    "name": "Perm",
+    "duration": 5,
+    "maxgroupSize": 25,
+    "price": 300,
+    "difficulty": "easy"
+  },
+  {
+    "id": 2,
+    "name": "Barcelona",
+    "duration": 12,
+    "maxgroupSize": 15,
+    "price": 12000,
+    "difficulty": "easy"
+  },
+  {
+    "id": 3,
+    "name": "Ural",
+    "duration": 3,
+    "maxgroupSize": 22,
+    "price": 300,
+    "difficulty": "hard"
+  },
+  {
+    "id": 5,
+    "name": "Kray zemli",
+    "duration": 366,
+    "maxgroupSize": 2500,
+    "price": 1,
+    "difficulty": "death"
+  }
+]
