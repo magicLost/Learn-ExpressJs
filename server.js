@@ -44,3 +44,10 @@ process.on("unhandledRejection", err => {
     process.exit(1);
   });
 });
+
+process.on("SIGTERM", () => {
+  console.error("SIGTERM received");
+  server.close(() => {
+    process.exit(1);
+  });
+});

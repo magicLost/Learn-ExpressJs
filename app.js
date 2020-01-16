@@ -1,3 +1,4 @@
+const path = require("path");
 const express = require("express");
 const morgan = require("morgan");
 const rateLimit = require("express-rate-limit");
@@ -5,17 +6,38 @@ const helmet = require("helmet");
 const mongoSanitize = require("express-mongo-sanitize");
 const xss = require("xss-clean");
 const hpp = require("hpp");
+const cors = require("cors");
 
 const tourRouter = require("./routes/tourRoutes");
 const userRouter = require("./routes/userRoutes");
 const reviewRouter = require("./routes/reviewRoutes");
+const viewRouter = require("./routes/viewRoutes");
 
 const AppError = require("./utils/AppError");
 const globalErrorHandler = require("./controllers/errorController");
 
+/* 187 */
 const app = express();
+app.enable("trust proxy");
+
+// Serving static file
+app.use(express.static(path.join(__dirname, "public")));
+
+/*Define html engine*/
+app.set("view engine", "pug");
+app.set("views", path.join(__dirname, "views"));
 
 /* MIDDLEWARES */
+
+/* IMPLEMENT CORS */
+app.use(cors());
+app.use(
+  cors({
+    origin: "https://www.natours.com"
+  })
+);
+
+app.options("*", cors());
 
 //Security HTTP headers
 app.use(helmet());
@@ -51,9 +73,6 @@ app.use(
   })
 );
 
-// Serving static file
-app.use(express.static(`${__dirname}/public`));
-
 // Test middleware
 app.use((req, res, next) => {
   //console.log("Hello from the middleware..");
@@ -63,6 +82,7 @@ app.use((req, res, next) => {
 });
 
 /* ROUTE HANDLERS */
+app.use("/", viewRouter);
 
 app.use("/api/v1/tours", tourRouter);
 app.use("/api/v1/users", userRouter);
